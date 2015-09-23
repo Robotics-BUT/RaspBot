@@ -53,23 +53,27 @@ SRC +=  motor.c
 OBJ	=	$(SRC:.c=.o)
 BINS	=	$(SRC:.c=)
 
-all:	
+all:
 	$Q cat README.TXT
 	$Q echo "    $(BINS)" | fmt
 	$Q echo ""
 
-really-all:	$(BINS)
+really-all: $(BINS)
 
-blink:	blink.o
-	$Q echo [link]
-	$Q $(CC) -o $@ blink.o $(LDFLAGS) $(LDLIBS)
+blink: blink.o
+	$Q echo [LNK] $@
+	$Q $(CC) -o $@ $< $(LDFLAGS) $(LDLIBS)
 
-.c.o:
+motor: motor.o
+	$Q echo [LNK] $@
+	$Q $(CC) -o $@ $< $(LDFLAGS) $(LDLIBS)
+
+%.o: %.c
 	$Q echo [CC] $<
 	$Q $(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	$Q echo "[Clean]"
+	$Q echo "[CLEAN]"
 	$Q rm -f $(OBJ) *~ core tags $(BINS)
 
 depend:
