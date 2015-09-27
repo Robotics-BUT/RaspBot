@@ -24,46 +24,37 @@
 
 #include <stdio.h>
 #include <wiringPi.h>
-
-#define LMOTOR_EN	0
-#define LMOTOR_DIR	0
-#define LMOTOR_STEP	0
-#define RMOTOR_EN	0
-#define RMOTOR_DIR	0
-#define RMOTOR_STEP	0
-
-#define	LED	25
+#include "../RaspBot.h"
 
 int main (void)
 {
-  printf ("RaspBot motor control\n\n");
+  printf("RaspBot motor control\n\n");
 
-  wiringPiSetup ();
+  wiringPiSetup();
 
-  pinMode(LED, OUTPUT);
-  pinMode(LMOTOR_DIR, OUTPUT);
-  pinMode(LMOTOR_STEP, OUTPUT);
-  pinMode(LMOTOR_EN, OUTPUT);
-  pinMode(RMOTOR_DIR, OUTPUT);
-  pinMode(RMOTOR_STEP, OUTPUT);
-  pinMode(RMOTOR_EN, OUTPUT);
+  pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_LMOT_DIR, OUTPUT);
+  pinMode(PIN_LMOT_STEP, OUTPUT);
+  pinMode(PIN_LMOT_EN, OUTPUT);
+  pinMode(PIN_RMOT_DIR, OUTPUT);
+  pinMode(PIN_RMOT_STEP, OUTPUT);
+  pinMode(PIN_RMOT_EN, OUTPUT);
 
-  digitalWrite(LMOTOR_EN, LOW) ;	// On
-  digitalWrite(RMOTOR_EN, LOW) ;	// On
+  digitalWrite(PIN_LMOT_EN, LOW);	// On
+  digitalWrite(PIN_RMOT_EN, LOW);	// On
 
-  digitalWrite(LMOTOR_DIR, LOW) ;	// direct
-  digitalWrite(RMOTOR_DIR, HIGH) ;	// reversed
+  digitalWrite(PIN_LMOT_DIR, LOW);	// direct
+  digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
 
-  for ( ; ; )
-  {
+  for ( ; ; ) {
     // one step
-    digitalWrite(LMOTOR_STEP, LOW) ;
-    digitalWrite(RMOTOR_STEP, LOW) ;
+    digitalWrite(PIN_LMOT_STEP, LOW) ;
+    digitalWrite(PIN_RMOT_STEP, LOW) ;
     delay(20);
     // second step
-    digitalWrite(LMOTOR_STEP, HIGH) ;
-    digitalWrite(RMOTOR_STEP, HIGH) ;
+    digitalWrite(PIN_LMOT_STEP, HIGH) ;
+    digitalWrite(PIN_RMOT_STEP, HIGH) ;
     delay(20);
   }
-  return 0 ;
+  return 0;
 }

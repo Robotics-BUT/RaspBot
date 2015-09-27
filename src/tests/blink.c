@@ -25,22 +25,20 @@
 
 #include <stdio.h>
 #include <wiringPi.h>
-
-#define	LED	25
+#include "../RaspBot.h"
 
 int main (void)
 {
-  printf ("Raspberry Pi blink\n[Press Ctrl-C to exit]\n") ;
+  printf("Raspberry Pi blink\n[Press Ctrl-C to exit]\n");
 
-  wiringPiSetup () ;
-  pinMode (LED, OUTPUT) ;
+  wiringPiSetup();
+  pinMode(PIN_LED, OUTPUT);
 
-  for (;;)
-  {
-    digitalWrite (LED, HIGH) ;	// On
-    delay (500) ;		// mS
-    digitalWrite (LED, LOW) ;	// Off
-    delay (500) ;
+  for ( ; ; ) {
+    digitalWrite(PIN_LED, HIGH);	// On
+    delay(500);				// mS
+    digitalWrite(PIN_LED, LOW);		// Off
+    delay(500);
   }
-  return 0 ;
+  return 0;
 }
