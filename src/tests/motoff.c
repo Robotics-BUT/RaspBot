@@ -1,6 +1,6 @@
 /*
- * motor.c:
- *	Run motor with specified direction
+ * motoff.c:
+ *	Turn the motor current off
  *
  * Copyright (c) 2015 Frantisek Burian <BuFran@seznam.cz>
  ***********************************************************************
@@ -23,40 +23,8 @@
  */
 
 #include <stdio.h>
-#include <stdint.h>
 #include <wiringPi.h>
 #include "../RaspBot.h"
-
-
-volatile enum estate {
-    S_stop = 0,
-    S_drive = 1,
-    S_exit = 0xFF,
-} state = S_stop;
-
-int ckstate = 0;
-
-PI_THREAD(thread)
-{
-  piHiPri(99);
-  while (state != S_exit) {
-    delayMicroseconds(20);
-    switch (state){
-    case S_exit:
-	break;
-
-    case S_stop:
-	break;
-
-    case S_drive:
-	ckstate ^= HIGH;
-	digitalWrite(PIN_LMOT_STEP, ckstate);
-	digitalWrite(PIN_RMOT_STEP, ckstate);
-	break;
-    }
-  }
-  return 0;
-}
 
 int main (void)
 {
@@ -72,48 +40,21 @@ int main (void)
   pinMode(PIN_RMOT_STEP, OUTPUT);
   pinMode(PIN_RMOT_EN, OUTPUT);
 
-  digitalWrite(PIN_LMOT_EN, LOW);	// On
-  digitalWrite(PIN_RMOT_EN, LOW);	// On
+  digitalWrite(PIN_LMOT_EN, HIGH);	// On
+  digitalWrite(PIN_RMOT_EN, HIGH);	// On
 
   digitalWrite(PIN_LMOT_DIR, LOW);	// direct
   digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
 
-  piHiPri(0);
-  piThreadCreate(thread);
-
-  while (state != S_exit) {
-	delayMicroseconds(1000);
-        switch(getchar()){
-	case 'q':
-		state = S_exit;
-		break;
-	case 'w':
-		state = S_drive;
-		digitalWrite(PIN_LMOT_DIR, LOW);	// direct
-		digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
-		break;
-	case 's':
-		state = S_drive;
-		digitalWrite(PIN_LMOT_DIR, HIGH);	// direct
-		digitalWrite(PIN_RMOT_DIR, LOW);	// reversed
-		break;
-	case 'a':
-		state = S_drive;
-		digitalWrite(PIN_LMOT_DIR, HIGH);	// direct
-		digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
-		break;
-	case 'd':
-		state = S_drive;
-		digitalWrite(PIN_LMOT_DIR, LOW);	// direct
-		digitalWrite(PIN_RMOT_DIR, LOW);	// reversed
-		break;
-	case ' ':
-		state = S_stop;
-		break;
-	}
+  for ( ; ; ) {
+    // one step
+    digitalWrite(PIN_LMOT_STEP, LOW) ;
+    digitalWrite(PIN_RMOT_STEP, LOW) ;
+//    delay(2);
+    // second step
+    digitalWrite(PIN_LMOT_STEP, HIGH) ;
+    digitalWrite(PIN_RMOT_STEP, HIGH) ;
+//    delay(2);
   }
-  digitalWrite(PIN_LMOT_EN, HIGH);	// On
-  digitalWrite(PIN_RMOT_EN, HIGH);	// On
-
   return 0;
 }

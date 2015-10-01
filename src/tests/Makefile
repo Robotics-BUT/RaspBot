@@ -49,6 +49,8 @@ LDLIBS    = -lwiringPi -lwiringPiDev -lpthread -lm
 
 SRC  =	blink.c
 SRC +=  motor.c
+SRC +=  motoff.c
+SRC +=  joy.c
 
 OBJ	=	$(SRC:.c=.o)
 BINS	=	$(SRC:.c=)
@@ -65,6 +67,10 @@ blink: blink.o
 	$Q $(CC) -o $@ $< $(LDFLAGS) $(LDLIBS)
 
 motor: motor.o
+	$Q echo [LNK] $@
+	$Q $(CC) -o $@ $< $(LDFLAGS) $(LDLIBS)
+
+joy: joy.o
 	$Q echo [LNK] $@
 	$Q $(CC) -o $@ $< $(LDFLAGS) $(LDLIBS)
 
