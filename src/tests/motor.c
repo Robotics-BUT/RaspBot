@@ -22,14 +22,18 @@
  ***********************************************************************
  */
 
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
+#include <unistd.h>
 #include <wiringPi.h>
 #include <mcp3422.h>
 #include "../RaspBot.h"
 
-#define USE_JOY
-//#define USE_UDP
+//#define USE_JOY
+#define USE_UDP
 
 
 volatile enum estate {
@@ -45,6 +49,7 @@ struct delay_t {
     int t;
     int n;
 };
+
 
 struct delay_t compute_delay(int freq)
 {
@@ -83,7 +88,7 @@ PI_THREAD(lthread)
 	    struct delay_t dly = compute_delay(L > 0 ? L : -L);
 
 	    delayMicroseconds(dly.t);
-            digitalWrite(PIN_LMOT_DIR, L > 0 ? HIGH : LOW);
+            digitalWrite(PIN_LMOT_DIR, L < 0 ? HIGH : LOW);
 
 	    for (int i = 0; i < dly.n; i++) {
 	      digitalWrite(PIN_LMOT_STEP, HIGH);
@@ -119,7 +124,7 @@ PI_THREAD(rthread)
 	    struct delay_t dly = compute_delay(R > 0 ? R : -R);
 
 	    delayMicroseconds(dly.t);
-	    digitalWrite(PIN_RMOT_DIR, R > 0 ? LOW : HIGH);
+	    digitalWrite(PIN_RMOT_DIR, R < 0 ? LOW : HIGH);
 
 	    for (int i = 0; i < dly.n; i++) {
 	      digitalWrite(PIN_RMOT_STEP, HIGH);
@@ -147,8 +152,8 @@ PI_THREAD(joystick)
     int y = analogRead(400) - ycal;
     int x = analogRead(403) - xcal;
 
-    L = (y + x) / 2;
-    R = (y - x) / 2;
+    L = (y - x) / 2;
+    R = (y + x) / 2;
 
     printf("\rL=%04i R=%04i     >",L,R);
   }
@@ -159,6 +164,44 @@ PI_THREAD(joystick)
 #ifdef USE_UDP
 PI_THREAD(udp)
 {
+    struct sockaddr_in srv, cli;
+    
+
+    int fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    memset(&srv, 0, sizeof(srv));
+    srv.sin_family = AF_INET;
+    srv.sin_addr.s_addr = htonl(INADDR_ANY);
+    srv.sin_port = htons(32000);
+    bind(fd, (struct sockaddr*)&srv, sizeof(srv));
+    
+    while (state != S_exit) {
+	fd_set rfds;
+	FD_ZERO(&rfds);
+	FD_SET(fd,&rfds);
+
+	struct timeval tv;
+	tv.tv_sec = 1;
+        tv.tv_usec = 0;
+
+	if (select(fd+1, &rfds, NULL,NULL, & tv) < 0)
+	    continue;
+
+	if (FD_ISSET(fd, &rfds)) {
+	    char buf[1024];
+	    socklen_t alen = sizeof(cli);
+	    int by = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr*)&cli, &alen);
+
+	    if (by == 5)
+	    {
+		L = (short)((buf[2] << 8) | buf[1]);
+		R = (short)((buf[4] << 8) | buf[3]);
+	        printf("\rL=%04i R=%04i     >",L,R);
+	    }
+	}
+    }
+
+    close(fd);
+    return 0;
 }
 #endif
 
