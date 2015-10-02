@@ -28,6 +28,9 @@
 #include <mcp3422.h>
 #include "../RaspBot.h"
 
+#define USE_JOY
+//#define USE_UDP
+
 
 volatile enum estate {
     S_stop = 0,
@@ -35,26 +38,37 @@ volatile enum estate {
     S_exit = 0xFF,
 } state = S_drive;
 
-int ckstate = 0;
 volatile int L = 0;
 volatile int R = 0;
+
+struct delay_t {
+    int t;
+    int n;
+};
+
+struct delay_t compute_delay(int freq)
+{
+    struct delay_t dly;
+    dly.n = 1;
+    dly.t = 200;
+
+    if (!freq)
+	return dly;
+
+    do {
+	dly.n *= 2;
+	dly.t = 20000 * dly.n/freq;
+    } while (dly.t < 1000);
+
+    dly.n /= 2;
+    dly.t /= 2;
+    return dly;
+}
 
 PI_THREAD(lthread)
 {
   piHiPri(99);
   while (state != S_exit) {
-    int n = 1,f = L * L, i;
-    if (f > 50*50)
-	n = 8;
-    else if (f > 25*25)
-	n = 4;
-    else if (f > 12*12)
-	n = 2;
-    else
-	n = 1;
-
-    f /= n;	
-	
     switch (state){
     case S_exit:
 	break;
@@ -64,14 +78,22 @@ PI_THREAD(lthread)
 	break;
 
     case S_drive:
-	delayMicroseconds(L ? (200000/f) : 200);
-	if (f)
-	    for (i = 0; i<n; i++) {
+	if (L)
+	{
+	    struct delay_t dly = compute_delay(L > 0 ? L : -L);
+
+	    delayMicroseconds(dly.t);
+            digitalWrite(PIN_LMOT_DIR, L > 0 ? HIGH : LOW);
+
+	    for (int i = 0; i < dly.n; i++) {
 	      digitalWrite(PIN_LMOT_STEP, HIGH);
 	      delayMicroseconds(1);
 	      digitalWrite(PIN_LMOT_STEP, LOW);
 	      delayMicroseconds(1);
     	    }
+	} else
+     	    delayMicroseconds(1000);	
+
 	break;
     }
   }
@@ -81,21 +103,8 @@ PI_THREAD(lthread)
 PI_THREAD(rthread)
 {
   piHiPri(99);
+
   while (state != S_exit) {
-    int n = 1,f = R * R, i;
-
-    if (f > 50*50)
-	n = 8;
-    else if (f > 25*25)
-	n = 4;
-    else if (f > 12*12)
-	n = 2;
-    else
-	n = 1;
-
-    f /= n;
-	
-    
     switch (state){
     case S_exit:
 	break;
@@ -105,14 +114,22 @@ PI_THREAD(rthread)
 	break;
 
     case S_drive:
-	delayMicroseconds(R ? (200000/f) : 200);
-	if (f)
-	    for (i = 0; i<n; i++) {
+	if (R)
+	{
+	    struct delay_t dly = compute_delay(R > 0 ? R : -R);
+
+	    delayMicroseconds(dly.t);
+	    digitalWrite(PIN_RMOT_DIR, R > 0 ? LOW : HIGH);
+
+	    for (int i = 0; i < dly.n; i++) {
 	      digitalWrite(PIN_RMOT_STEP, HIGH);
 	      delayMicroseconds(1);
 	      digitalWrite(PIN_RMOT_STEP, LOW);
 	      delayMicroseconds(1);
     	    }
+	} else
+     	    delayMicroseconds(1000);	
+
 	break;
     }
   }
@@ -120,26 +137,35 @@ PI_THREAD(rthread)
 }
 
 
-
-
+#ifdef USE_JOY
 PI_THREAD(joystick)
 {
+  int ycal = analogRead(400);
+  int xcal = analogRead(403);
+
   while (state != S_exit) {
-    int y = analogRead(400) * 100 / 1024;
-    int x = analogRead(403) * 100 / 1024;
+    int y = analogRead(400) - ycal;
+    int x = analogRead(403) - xcal;
 
     L = (y + x) / 2;
     R = (y - x) / 2;
 
-    digitalWrite(PIN_LMOT_DIR, L > 0 ? HIGH : LOW);
-    digitalWrite(PIN_RMOT_DIR, R > 0 ? LOW : HIGH);
+    printf("\rL=%04i R=%04i     >",L,R);
   }
   return 0;
 }
+#endif
+
+#ifdef USE_UDP
+PI_THREAD(udp)
+{
+}
+#endif
+
 
 int main (void)
 {
-  printf("RaspBot motor control\n\n");
+  printf("RaspBot motor control\n\n qrl?>");
 
   wiringPiSetup();
 
@@ -157,12 +183,20 @@ int main (void)
   digitalWrite(PIN_LMOT_DIR, LOW);	// direct
   digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
 
+#ifdef USE_JOY
   mcp3422Setup(400, 0x68, MCP3422_BITS_12, MCP3422_GAIN_1);
+#endif
 
   piHiPri(0);
   piThreadCreate(lthread);
   piThreadCreate(rthread);
+
+#ifdef USE_JOY
   piThreadCreate(joystick);
+#endif
+#ifdef USE_UDP
+  piThreadCreate(udp);
+#endif
 
   while (state != S_exit) {
 	delayMicroseconds(1000);
@@ -170,28 +204,14 @@ int main (void)
 	case 'q':
 		state = S_exit;
 		break;
-	case 'w':
+	case 'r':
 		state = S_drive;
-		digitalWrite(PIN_LMOT_DIR, LOW);	// direct
-		digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
-		break;
-	case 's':
-		state = S_drive;
-		digitalWrite(PIN_LMOT_DIR, HIGH);	// direct
-		digitalWrite(PIN_RMOT_DIR, LOW);	// reversed
-		break;
-	case 'a':
-		state = S_drive;
-		digitalWrite(PIN_LMOT_DIR, HIGH);	// direct
-		digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
-		break;
-	case 'd':
-		state = S_drive;
-		digitalWrite(PIN_LMOT_DIR, LOW);	// direct
-		digitalWrite(PIN_RMOT_DIR, LOW);	// reversed
 		break;
 	case ' ':
 		state = S_stop;
+		break;
+	case 'l':
+		printf("Actual state: L=%i R=%i",L,R);
 		break;
 	}
   }
