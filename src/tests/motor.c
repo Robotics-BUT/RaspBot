@@ -36,13 +36,54 @@ volatile enum estate {
 } state = S_drive;
 
 int ckstate = 0;
-volatile int speed = 0;
+volatile int L = 0;
+volatile int R = 0;
 
-PI_THREAD(thread)
+PI_THREAD(lthread)
 {
   piHiPri(99);
   while (state != S_exit) {
-    int n = 1,f = speed * speed, i;
+    int n = 1,f = L * L, i;
+    if (f > 50*50)
+	n = 8;
+    else if (f > 25*25)
+	n = 4;
+    else if (f > 12*12)
+	n = 2;
+    else
+	n = 1;
+
+    f /= n;	
+	
+    switch (state){
+    case S_exit:
+	break;
+
+    case S_stop:
+	delayMicroseconds(100000);	
+	break;
+
+    case S_drive:
+	delayMicroseconds(L ? (200000/f) : 200);
+	if (f)
+	    for (i = 0; i<n; i++) {
+	      digitalWrite(PIN_LMOT_STEP, HIGH);
+	      delayMicroseconds(1);
+	      digitalWrite(PIN_LMOT_STEP, LOW);
+	      delayMicroseconds(1);
+    	    }
+	break;
+    }
+  }
+  return 0;
+}
+
+PI_THREAD(rthread)
+{
+  piHiPri(99);
+  while (state != S_exit) {
+    int n = 1,f = R * R, i;
+
     if (f > 50*50)
 	n = 8;
     else if (f > 25*25)
@@ -54,22 +95,21 @@ PI_THREAD(thread)
 
     f /= n;
 	
-	
-    delayMicroseconds(speed ? (300000/f) : 200);
+    
     switch (state){
     case S_exit:
 	break;
 
     case S_stop:
+	delayMicroseconds(100000);
 	break;
 
     case S_drive:
+	delayMicroseconds(R ? (200000/f) : 200);
 	if (f)
 	    for (i = 0; i<n; i++) {
-	      digitalWrite(PIN_LMOT_STEP, HIGH);
 	      digitalWrite(PIN_RMOT_STEP, HIGH);
 	      delayMicroseconds(1);
-	      digitalWrite(PIN_LMOT_STEP, LOW);
 	      digitalWrite(PIN_RMOT_STEP, LOW);
 	      delayMicroseconds(1);
     	    }
@@ -79,19 +119,20 @@ PI_THREAD(thread)
   return 0;
 }
 
+
+
+
 PI_THREAD(joystick)
 {
   while (state != S_exit) {
     int y = analogRead(400) * 100 / 1024;
     int x = analogRead(403) * 100 / 1024;
 
-    int L = (y + x) / 2;
-    int R = (y - x) / 2;
+    L = (y + x) / 2;
+    R = (y - x) / 2;
 
     digitalWrite(PIN_LMOT_DIR, L > 0 ? HIGH : LOW);
     digitalWrite(PIN_RMOT_DIR, R > 0 ? LOW : HIGH);
-
-    speed = y; 
   }
   return 0;
 }
@@ -119,7 +160,8 @@ int main (void)
   mcp3422Setup(400, 0x68, MCP3422_BITS_12, MCP3422_GAIN_1);
 
   piHiPri(0);
-  piThreadCreate(thread);
+  piThreadCreate(lthread);
+  piThreadCreate(rthread);
   piThreadCreate(joystick);
 
   while (state != S_exit) {
