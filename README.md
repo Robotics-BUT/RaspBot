@@ -1,4 +1,4 @@
-RaspBot Robotic platform
+KAMBot Robotic platform
 ========================
 
 This repository holds all development on RaspBot robotic project.
