@@ -36,8 +36,10 @@ int main (void)
 
   for ( ; ; ) {
     digitalWrite(PIN_LED, HIGH);	// On
+    printf("LED ON\n");
     delay(500);				// mS
     digitalWrite(PIN_LED, LOW);		// Off
+    printf("LED OFF\n");
     delay(500);
   }
   return 0;
