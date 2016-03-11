@@ -4,3 +4,8 @@
 *.s#?
 *.l#?
 /mecha/PROGholder/*.skb
+/src/KM2/km2.hex
+/src/KM2/km2.eep
+/src/KM2/km2.elf
+/src/KM2/km2.map
+/src/KM2/km2.lst
