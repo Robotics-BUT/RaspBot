@@ -1,6 +1,29 @@
 #ifndef GPIO_H__
 #define GPIO_H__
 
+/*
+ * KM2/gpio.h:
+ *	gpio low level module
+ *
+ * Copyright (c) 2016 Frantisek Burian <BuFran@seznam.cz>
+ ***********************************************************************
+ * This file is part of KAMBot
+ *
+ *    KAMBot is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    KAMBot is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Lesser General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Lesser General Public License
+ *    along with KAMBot.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************
+ */
+
 #define _PA		(0 << 4)
 #define _PA0	(_PA + 0)
 #define _PA1	(_PA + 1)
