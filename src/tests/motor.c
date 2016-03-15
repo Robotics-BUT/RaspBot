@@ -167,17 +167,17 @@ PI_THREAD(udp)
     struct sockaddr_in srv, cli;
     
 
-    int fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    memset(&srv, 0, sizeof(srv));
+    int fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);			// socket(IPv4 Internet protocols , Supports datagrams,protocol)
+    memset(&srv, 0, sizeof(srv));				// fill srv with zero byte
     srv.sin_family = AF_INET;
-    srv.sin_addr.s_addr = htonl(INADDR_ANY);
-    srv.sin_port = htons(32000);
-    bind(fd, (struct sockaddr*)&srv, sizeof(srv));
+    srv.sin_addr.s_addr = htonl(INADDR_ANY);	// converts the unsigned integer hostlong from host byte order to network byte order
+    srv.sin_port = htons(32000);	// converts the unsigned short integer hostshort from host byte order to network byte order
+    bind(fd, (struct sockaddr*)&srv, sizeof(srv));	// bind a name to a socket, bind(sockfd, addr, addrlen);
     
     while (state != S_exit) {
-	fd_set rfds;
-	FD_ZERO(&rfds);
-	FD_SET(fd,&rfds);
+	fd_set rfds;		// declare struct fd_set
+	FD_ZERO(&rfds);		// clears the set
+	FD_SET(fd,&rfds);	// add file descriptor to set rfds
 
 	struct timeval tv;
 	tv.tv_sec = 1;
@@ -186,10 +186,12 @@ PI_THREAD(udp)
 	if (select(fd+1, &rfds, NULL,NULL, & tv) < 0)
 	    continue;
 
-	if (FD_ISSET(fd, &rfds)) {
+	if (FD_ISSET(fd, &rfds)) 		// test if file descriptor is part of the set
+	{
 	    char buf[1024];
 	    socklen_t alen = sizeof(cli);
-	    int by = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr*)&cli, &alen);
+	    int by = recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr*)&cli, &alen); //receive a message from a socket...
+	    									//recvfrom(sockfd,*buf, len, flags, *src_addr, *addrlen)
 
 	    if (by == 5)
 	    {
