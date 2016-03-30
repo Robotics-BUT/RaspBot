@@ -21,7 +21,7 @@
  *    along with RaspBot.  If not, see <http://www.gnu.org/licenses/>.
  ***********************************************************************
  */
-
+/* little change to test git */
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <stdio.h>
@@ -180,7 +180,7 @@ PI_THREAD(udp)
 	FD_SET(fd,&rfds);	// add file descriptor to set rfds
 
 	struct timeval tv;
-	tv.tv_sec = 1;
+	tv.tv_sec = 2;
         tv.tv_usec = 0;
 
 	if (select(fd+1, &rfds, NULL,NULL, & tv) < 0)
@@ -198,7 +198,13 @@ PI_THREAD(udp)
 		L = (short)((buf[2] << 8) | buf[1]);
 		R = (short)((buf[4] << 8) | buf[3]);
 	        printf("\rL=%04i R=%04i     >",L,R);
+	    } else {
+	        printf("bytes=%i\n",by);
+		for (int i=0; i<by; i++)
+		    printf(" 0x%2x",by);
 	    }
+	} else {
+	    //L = R = 0;
 	}
     }
 
@@ -250,12 +256,18 @@ int main (void)
 		state = S_exit;
 		break;
 	case 'r':
+		L = 256;
+		R = 0;
 		state = S_drive;
+		printf("Actual state: L=%i R=%i",L,R);
 		break;
 	case ' ':
 		state = S_stop;
 		break;
 	case 'l':
+		L = 0;
+		R = 256;
+		state = S_drive;
 		printf("Actual state: L=%i R=%i",L,R);
 		break;
 	}
