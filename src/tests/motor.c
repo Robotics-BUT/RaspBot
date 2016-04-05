@@ -32,8 +32,8 @@
 #include <mcp3422.h>
 #include "../RaspBot.h"
 
-//#define USE_JOY
-#define USE_UDP
+#define USE_JOY
+//#define USE_UDP
 
 
 volatile enum estate {
