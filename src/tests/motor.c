@@ -250,7 +250,7 @@ int main (void)
   piThreadCreate(udp);
 #endif
 
-  while (state != S_exit) {
+   while (state != S_exit) {
 	delayMicroseconds(1000);
         switch(getchar()){
 	case 'q':
