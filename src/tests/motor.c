@@ -184,7 +184,7 @@ PI_THREAD(udp)
         tv.tv_usec = 0;
 
 	if (select(fd+1, &rfds, NULL,NULL, & tv) < 0)
-	    continue;
+	    { printf("init"); continue;}
 
 	if (FD_ISSET(fd, &rfds)) 		// test if file descriptor is part of the set
 	{
@@ -198,6 +198,7 @@ PI_THREAD(udp)
 		L = (short)((buf[2] << 8) | buf[1]);
 		R = (short)((buf[4] << 8) | buf[3]);
 	        printf("\rL=%04i R=%04i     >",L,R);
+		printf("%d", buf[0]);		// debug
 	    } else {
 	        printf("bytes=%i\n",by);
 		for (int i=0; i<by; i++)
@@ -235,7 +236,7 @@ int main (void)
   digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
 
 #ifdef USE_JOY
-  mcp3422Setup(400, 0x68, MCP3422_BITS_12, MCP3422_GAIN_1);
+  mcp3422Setup(400, 0x68, MCP3422_BITS_12, MCP3422_GAIN_1);	// 0xD1
 #endif
 
   piHiPri(0);
