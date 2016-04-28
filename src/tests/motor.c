@@ -184,7 +184,7 @@ PI_THREAD(udp)
         tv.tv_usec = 0;
 
 	if (select(fd+1, &rfds, NULL,NULL, & tv) < 0)
-	    { printf("init"); continue;}
+	    continue;
 
 	if (FD_ISSET(fd, &rfds)) 		// test if file descriptor is part of the set
 	{
@@ -236,7 +236,7 @@ int main (void)
   digitalWrite(PIN_RMOT_DIR, HIGH);	// reversed
 
 #ifdef USE_JOY
-  mcp3422Setup(400, 0x68, MCP3422_BITS_12, MCP3422_GAIN_1);	// 0xD1
+  mcp3422Setup(400, 0x68, MCP3422_BITS_12, MCP3422_GAIN_1);
 #endif
 
   piHiPri(0);
