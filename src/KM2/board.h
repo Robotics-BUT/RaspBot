@@ -41,6 +41,6 @@
 #define I2C_SCL		_PC5
 #define I2C_SDA		_PC4
 
-endif
+#endif
 
 #endif

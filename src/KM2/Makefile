@@ -30,31 +30,37 @@
 ifneq ($V,1)
 Q ?= @
 endif
-PRG	= km2
-MCU	= atmega88
+PRG		= km2
+MCU		= atmega88
+F_CPU	= 8000000UL
 
 CC	= avr-gcc
 LD	= avr-ld
 OBJCOPY	= avr-objcopy
 OBJDUMP	= avr-objdump
+SIZE	= avr-size
 
 #DEBUG	= -g -O0
 DEBUG	= -O3
 
-CFLAGS	= $(DEBUG) -Wall $(INCLUDE) -mmcu=$(MCU) -Winline -pipe -std=gnu99
+CFLAGS	= $(DEBUG) -Wall $(INCLUDE) -mmcu=$(MCU) -Winline -pipe -std=gnu99 -DF_CPU=8000000
 LDFLAGS	= -Wl,-Map,km2.map
 LDLIBS	=
 
 # Should not alter anything below this line
 ###############################################################################
 
-SRC  = main.c
+SRC  = main.c motors.c
 
 OBJ	=	$(SRC:.c=.o)
 
-all: $(PRG).elf hex lst
+all: $(PRG).elf hex lst size
 lst: $(PRG).lst
 hex: $(PRG).hex $(PRG).eep
+
+size:
+	$Q echo ""
+	$Q $(SIZE) -C --mcu=$(MCU) $(PRG).elf
 
 
 clean:
@@ -63,7 +69,7 @@ clean:
 
 $(PRG).elf: $(OBJ)
 	$Q echo [LNK] $@
-	$Q $(CC) -o $@ $< $(CFLAGS) $(LDFLAGS) $(LDLIBS)
+	$Q $(CC) -o $@ $(OBJ) $(CFLAGS) $(LDFLAGS) $(LDLIBS)
 
 %.o: %.c
 	$Q echo [CC] $<
@@ -81,4 +87,6 @@ $(PRG).elf: $(OBJ)
 	$Q echo [EEPROM HEX] $<
 	$Q $(OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O ihex $< $@ 2>/dev/null || exit 0;
 
+
+.PHONY: all clean lst hex size
 # DO NOT DELETE

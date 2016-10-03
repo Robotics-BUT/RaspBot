@@ -1,6 +1,9 @@
 #ifndef GPIO_H__
 #define GPIO_H__
 
+#include <stdbool.h>
+#include <avr/io.h>
+
 /*
  * KM2/gpio.h:
  *	gpio low level module
@@ -144,25 +147,25 @@ inline void gpio_set(const char pin, const char value)
 #ifdef PORTA
 		case _PA:
 			if (value) PORTA |= __PINBIT(pin);
-			else PORTA &= ~_PINBIT(pin);
+			else PORTA &= ~__PINBIT(pin);
 			break;
 #endif
 #ifdef PORTB
 		case _PB:
 			if (value) PORTB |= __PINBIT(pin);
-			else PORTB &= ~_PINBIT(pin);
+			else PORTB &= ~__PINBIT(pin);
 			break;
 #endif
 #ifdef PORTC
 		case _PC:
 			if (value) PORTC |= __PINBIT(pin);
-			else PORTC &= ~_PINBIT(pin);
+			else PORTC &= ~__PINBIT(pin);
 			break;
 #endif
 #ifdef PORTD
 		case _PD:
 			if (value) PORTD |= __PINBIT(pin);
-			else PORTD &= ~_PINBIT(pin);
+			else PORTD &= ~__PINBIT(pin);
 			break;
 #endif
 	}
