@@ -31,7 +31,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-  
+
 /*
  * NOMENCLATURE:
  * 
@@ -58,9 +58,36 @@ extern "C" {
  */
 
 // forward declarations
-  
+
+/**
+ * Initialize I2C bus
+ * @param busno Bus number (for Rpiv2 set to 1)
+ * @return file descriptor on success
+ * @return -1 on failure (errno is set)
+ */
 static inline int i2c_init(int busno);
+
+/**
+ * Close the I2C bus
+ * @param fd file descriptor to close
+ * @return 0 on success
+ * @return -1 on failure (errno is set)
+ */
 static inline int i2c_close(int fd);
+
+/**
+ * Make one transaction on the I2C bus.
+ * 
+ * This function writes nw bytes from the bus, following nr bytes reading from the bus.
+ * 
+ * @param fd file descriptor
+ * @param chip_addr I2C address of the chip
+ * @param buffer data storage for the transaction
+ * @param nw number of bytes to write
+ * @param nr number of bytes to read
+ * @return number bytes readed when success
+ * @return -1 on error (errno is set)
+ */
 static inline int i2c_transact(int fd, int chip_addr, uint8_t *buffer, int nw, int nr);
 
 // standard writes
@@ -117,7 +144,23 @@ static inline int i2c_read_leuint16(int fd, int chip_addr, int reg, uint16_t *va
 static inline int i2c_read_leuint32(int fd, int chip_addr, int reg, uint32_t *value);
 static inline int i2c_read_leuint64(int fd, int chip_addr, int reg, uint64_t *value);
 
-// array reads currently not implemeted!!
+// array reads 
+static inline int i2c_read_beint08_array(int fd, int chip_addr, int reg, int8_t *values, size_t count);
+static inline int i2c_read_beint16_array(int fd, int chip_addr, int reg, int16_t *values, size_t count);
+static inline int i2c_read_beint32_array(int fd, int chip_addr, int reg, int32_t *values, size_t count);
+static inline int i2c_read_beint64_array(int fd, int chip_addr, int reg, int64_t *values, size_t count);
+static inline int i2c_read_beuint08_array(int fd, int chip_addr, int reg, uint8_t *values, size_t count);
+static inline int i2c_read_beuint16_array(int fd, int chip_addr, int reg, uint16_t *values, size_t count);
+static inline int i2c_read_beuint32_array(int fd, int chip_addr, int reg, uint32_t *values, size_t count);
+static inline int i2c_read_beuint64_array(int fd, int chip_addr, int reg, uint64_t *values, size_t count);
+static inline int i2c_read_leint08_array(int fd, int chip_addr, int reg, int8_t *values, size_t count);
+static inline int i2c_read_leint16_array(int fd, int chip_addr, int reg, int16_t *values, size_t count);
+static inline int i2c_read_leint32_array(int fd, int chip_addr, int reg, int32_t *values, size_t count);
+static inline int i2c_read_leint64_array(int fd, int chip_addr, int reg, int64_t *values, size_t count);
+static inline int i2c_read_leuint08_array(int fd, int chip_addr, int reg, uint8_t *values, size_t count);
+static inline int i2c_read_leuint16_array(int fd, int chip_addr, int reg, uint16_t *values, size_t count);
+static inline int i2c_read_leuint32_array(int fd, int chip_addr, int reg, uint32_t *values, size_t count);
+static inline int i2c_read_leuint64_array(int fd, int chip_addr, int reg, uint64_t *values, size_t count);
 
 /**********************************************************************************************************
  * IMPLEMENTATION
@@ -252,6 +295,7 @@ static inline uint64_t __rleu64(uint8_t *buffer)
 
 // I2C FUNCTIONS ---------------------------------------------------------------------------------------
 
+
 static inline int i2c_init(int busno)
 {
   uint8_t name[256];
@@ -279,13 +323,14 @@ static inline int i2c_transact(int fd, int chip_addr, uint8_t *buffer, int nw, i
 }
 
 
-
+// write single token
 #define __I2C_WS(typ, zapisovatel)                                \
   uint8_t data[1 + sizeof(typ)];                                  \
   data[0] = reg;                                                  \
   zapisovatel(&data[1], (typ)value);                              \
   return i2c_transact(fd, chip_addr, data, 1 + sizeof(typ), 0);
 
+// write array of tokens
 #define __I2C_WA(typ, zapisovatel)                                \
   int sz = sizeof(typ);                                           \
   uint8_t *data = (uint8_t*)alloca(count * sz + 1);               \
@@ -294,6 +339,7 @@ static inline int i2c_transact(int fd, int chip_addr, uint8_t *buffer, int nw, i
     zapisovatel(&data[1 + i * sz], (typ)values[i]);               \
   return i2c_transact(fd, chip_addr, data, count * sz + 1, 0);
 
+// read single token
 #define __I2C_RS(typ, citatel)                                    \
   uint8_t data[sizeof(typ)];                                      \
   data[0] = reg;                                                  \
@@ -302,6 +348,16 @@ static inline int i2c_transact(int fd, int chip_addr, uint8_t *buffer, int nw, i
     *value = (typ)citatel(data);                                  \
   return err;
   
+// read array of tokens
+#define __I2C_RA(typ, citatel)                                    \
+  int sz = sizeof(typ);                                           \
+  uint8_t *data = (uint8_t*)alloca(count * sz + 1);               \
+  data[0] = reg;                                                  \
+  int err = i2c_transact(fd, chip_addr, data, 1, count * sz);     \
+  if (err == (count * sz))                                        \
+    for (int i = 0; i < count; i++)                               \
+      values[i] = (typ)citatel(&data[i * sz]);                     \
+  return err;
   
 static inline int i2c_write_beint08(int fd, int chip_addr, int reg, int8_t value)  
 {
@@ -543,7 +599,88 @@ static inline int i2c_read_leuint64(int fd, int chip_addr, int reg, uint64_t *va
   __I2C_RS(uint64_t, __rleu64)
 }
 
-// array reads are currently not implemented !!
+// array reads 
+
+static inline int i2c_read_beint08_array(int fd, int chip_addr, int reg, int8_t *values, size_t count)
+{
+  __I2C_RA(uint8_t, __rbeu08)
+}
+
+static inline int i2c_read_beint16_array(int fd, int chip_addr, int reg, int16_t *values, size_t count)
+{
+  __I2C_RA(uint16_t, __rbeu16)
+}
+
+static inline int i2c_read_beint32_array(int fd, int chip_addr, int reg, int32_t *values, size_t count)
+{
+  __I2C_RA(uint32_t, __rbeu32)
+}
+
+static inline int i2c_read_beint64_array(int fd, int chip_addr, int reg, int64_t *values, size_t count)
+{
+  __I2C_RA(uint64_t, __rbeu64)
+}
+
+static inline int i2c_read_beuint08_array(int fd, int chip_addr, int reg, uint8_t *values, size_t count)
+{
+  __I2C_RA(uint8_t, __rbeu08)
+}
+
+static inline int i2c_read_beuint16_array(int fd, int chip_addr, int reg, uint16_t *values, size_t count)
+{
+  __I2C_RA(uint16_t, __rbeu16)
+}
+
+static inline int i2c_read_beuint32_array(int fd, int chip_addr, int reg, uint32_t *values, size_t count)
+{
+  __I2C_RA(uint32_t, __rbeu32)
+}
+
+static inline int i2c_read_beuint64_array(int fd, int chip_addr, int reg, uint64_t *values, size_t count)
+{
+  __I2C_RA(uint64_t, __rbeu64)
+}
+
+static inline int i2c_read_leint08_array(int fd, int chip_addr, int reg, int8_t *values, size_t count)
+{
+  __I2C_RA(uint8_t, __rleu08)
+}
+
+static inline int i2c_read_leint16_array(int fd, int chip_addr, int reg, int16_t *values, size_t count)
+{
+  __I2C_RA(uint16_t, __rleu16)
+}
+
+static inline int i2c_read_leint32_array(int fd, int chip_addr, int reg, int32_t *values, size_t count)
+{
+  __I2C_RA(uint32_t, __rleu32)
+}
+
+static inline int i2c_read_leint64_array(int fd, int chip_addr, int reg, int64_t *values, size_t count)
+{
+  __I2C_RA(uint64_t, __rleu64)
+}
+
+static inline int i2c_read_leuint08_array(int fd, int chip_addr, int reg, uint8_t *values, size_t count)
+{
+  __I2C_RA(uint8_t, __rleu08)
+}
+
+static inline int i2c_read_leuint16_array(int fd, int chip_addr, int reg, uint16_t *values, size_t count)
+{
+  __I2C_RA(uint16_t, __rleu16)
+}
+
+static inline int i2c_read_leuint32_array(int fd, int chip_addr, int reg, uint32_t *values, size_t count)
+{
+  __I2C_RA(uint32_t, __rleu32)
+}
+
+static inline int i2c_read_leuint64_array(int fd, int chip_addr, int reg, uint64_t *values, size_t count)
+{
+  __I2C_RA(uint64_t, __rleu64)
+}
+
 
 #ifdef __cplusplus
 }
