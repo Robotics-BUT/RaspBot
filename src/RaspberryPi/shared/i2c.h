@@ -354,9 +354,11 @@ static inline int i2c_transact(int fd, int chip_addr, uint8_t *buffer, int nw, i
   uint8_t *data = (uint8_t*)alloca(count * sz + 1);               \
   data[0] = reg;                                                  \
   int err = i2c_transact(fd, chip_addr, data, 1, count * sz);     \
-  if (err == (count * sz))                                        \
+  if (err == (count * sz)) {                                      \
     for (int i = 0; i < count; i++)                               \
-      values[i] = (typ)citatel(&data[i * sz]);                     \
+      values[i] = (typ)citatel(&data[i * sz]);                    \
+    return count;                                                 \
+  }                                                               \
   return err;
   
 static inline int i2c_write_beint08(int fd, int chip_addr, int reg, int8_t value)  
