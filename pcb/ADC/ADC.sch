@@ -4163,7 +4163,7 @@ DIN A5, landscape with extra doc field</description>
 <part name="V8" library="!supply" deviceset="GND" device=""/>
 <part name="JP1" library="!pinhead" deviceset="PINHD-1X12" device="_254_EDGE" value="ZL201-12G"/>
 <part name="V10" library="!supply" deviceset="GND" device=""/>
-<part name="IC2" library="!stab" deviceset="MCP1700" device="" value="MCP1700"/>
+<part name="IC2" library="!stab" deviceset="MCP1700" device="" value="MCP1700T3302ETT"/>
 <part name="V11" library="!supply" deviceset="GND" device=""/>
 <part name="V12" library="!supply" deviceset="+03.3V" device=""/>
 <part name="C2" library="!discrete" deviceset="C" device="0805" value="1M">
