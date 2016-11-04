@@ -669,52 +669,89 @@ design rules under a new name.</description>
 <element name="JP1" library="!pinhead" package="1X04_254_EDGE" value="ZL201-04G" x="30.48" y="8.89" smashed="yes" rot="MR180">
 <attribute name="NAME" x="31.75" y="3.175" size="0.6096" layer="26" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="32.385" y="4.445" size="0.6096" layer="28" rot="MR270"/>
+<attribute name="PRICE" value="0.96" x="30.48" y="8.89" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/zl201-04g/konektory-hrebinky/connfly/ds1021-1_4sf1-1/" x="30.48" y="8.89" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
 <element name="JP2" library="!pinhead" package="1X04_254_EDGE" value="ZL201-04G" x="13.97" y="8.89" smashed="yes" rot="MR180">
 <attribute name="NAME" x="15.24" y="3.175" size="0.6096" layer="26" ratio="10" rot="MR90"/>
 <attribute name="VALUE" x="15.24" y="4.445" size="0.6096" layer="28" rot="MR270"/>
+<attribute name="PRICE" value="0.96" x="13.97" y="8.89" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/zl201-04g/konektory-hrebinky/connfly/ds1021-1_4sf1-1/" x="13.97" y="8.89" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
-<element name="M1" library="pololu" package="MODULE_16P" value="DRV8825" x="15.24" y="14.605" rot="R180"/>
-<element name="M2" library="pololu" package="MODULE_16P" value="DRV8825" x="31.75" y="14.605" rot="R180"/>
-<element name="IO1" library="!ic_avr" package="TQFP32" value="ATmega88PA" x="20.955" y="31.75" rot="MR90"/>
+<element name="M1" library="pololu" package="MODULE_16P" value="DRV8825" x="15.24" y="14.605" rot="R180">
+<attribute name="PRICE" value="181.73" x="15.24" y="14.605" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/pololu-2133/modulove-ovladace-motoru/pololu/" x="15.24" y="14.605" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
+<element name="M2" library="pololu" package="MODULE_16P" value="DRV8825" x="31.75" y="14.605" rot="R180">
+<attribute name="PRICE" value="181.73" x="31.75" y="14.605" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/pololu-2133/modulove-ovladace-motoru/pololu/" x="31.75" y="14.605" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
+<element name="IO1" library="!ic_avr" package="TQFP32" value="ATmega88PA-AU" x="20.955" y="31.75" rot="MR90">
+<attribute name="PRICE" value="54.04" x="20.955" y="31.75" size="1.778" layer="28" rot="MR90" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/atmega88pa-au/mikroprocesory-atmel-avr-smd/atmel/" x="20.955" y="31.75" size="1.778" layer="28" rot="MR90" display="off"/>
+</element>
 <element name="JP3" library="!pinhead" package="1X04_250_MX5267" value="MX-5267-04A" x="31.115" y="32.385" smashed="yes" rot="R90">
 <attribute name="NAME" x="31.2166" y="25.3492" size="0.6096" layer="25"/>
 <attribute name="VALUE" x="28.6258" y="34.8742" size="0.6096" layer="27" rot="R90"/>
+<attribute name="PRICE" value="2.55" x="31.115" y="32.385" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/mx-5267-04a/signalove-konektory-raster-250mm/molex/022035045-22-03-5045-5267-04a/" x="31.115" y="32.385" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="JP10" library="!pinhead" package="1X04_250_MX5267" value="MX-5267-04A" x="36.195" y="32.385" smashed="yes" rot="R90">
 <attribute name="NAME" x="35.6616" y="25.3492" size="0.6096" layer="25"/>
 <attribute name="VALUE" x="33.7058" y="34.8742" size="0.6096" layer="27" rot="R90"/>
+<attribute name="PRICE" value="2.55" x="36.195" y="32.385" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/mx-5267-04a/signalove-konektory-raster-250mm/molex/022035045-22-03-5045-5267-04a/" x="36.195" y="32.385" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="JP11" library="!pinhead" package="1X01_254_254_PAD" value="B+" x="3.81" y="5.08" rot="MR180">
+<element name="JP11" library="!pinhead" package="1X01_254_254_PAD" value="DNP" x="3.81" y="5.08" rot="MR180">
 <attribute name="PIN" value="+VBAT" x="3.81" y="5.08" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="PRICE" value="0.00" x="3.81" y="5.08" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="URL" value="-" x="3.81" y="5.08" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
-<element name="JP12" library="!pinhead" package="1X01_254_254_PAD" value="B-" x="41.91" y="5.08" rot="MR180">
+<element name="JP12" library="!pinhead" package="1X01_254_254_PAD" value="DNP" x="41.91" y="5.08" rot="MR180">
 <attribute name="PIN" value="-VBAT" x="41.91" y="5.08" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="PRICE" value="0.00" x="41.91" y="5.08" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="URL" value="-" x="41.91" y="5.08" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
 <element name="R1" library="!discrete" package="0805" value="10k" x="6.985" y="34.29" rot="MR90">
 <attribute name="TOLERANCE" value="" x="6.985" y="34.29" size="0.635" layer="28" font="vector" rot="MR90" display="off"/>
+<attribute name="PRICE" value="0.15" x="6.985" y="34.29" size="1.778" layer="28" rot="MR90" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/rc0805jr-07510k/rezistory-smd-0805/yageo/rc0805jr-07510kl/" x="6.985" y="34.29" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
 <element name="C1" library="!discrete" package="0805" value="100n" x="27.305" y="36.83" rot="MR180">
 <attribute name="MATERIAL" value="X7R" x="27.305" y="36.83" size="0.635" layer="28" font="vector" rot="MR180" display="off"/>
 <attribute name="VOLTAGE" value="16V" x="27.305" y="36.83" size="0.635" layer="28" font="vector" rot="MR180" display="off"/>
+<attribute name="PRICE" value="0.16" x="27.305" y="36.83" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/cc0805krx7r9104/kondenzatory-mlcc-smd-0805/yageo/cc0805krx7r9bb104/" x="27.305" y="36.83" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
 <element name="IO2" library="!stab" package="SOT23" value="MCP1700T3302ETT" x="33.02" y="25.4" smashed="yes" rot="MR0">
 <attribute name="NAME" x="33.02" y="25.4" size="0.6096" layer="26" rot="MR0" align="center"/>
 <attribute name="VALUE" x="33.02" y="22.225" size="0.6096" layer="28" rot="MR0" align="center"/>
+<attribute name="PRICE" value="8.77" x="33.02" y="25.4" size="1.778" layer="28" rot="MR0" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/mcp1700t3302ett/stabilizatory-napeti-neregulovane-ldo/microchip-technology/mcp1700t-3302ett/" x="33.02" y="25.4" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
 <element name="C3" library="!discrete" package="0805" value="1M" x="35.814" y="25.4" rot="MR270">
 <attribute name="MATERIAL" value="X7R" x="35.814" y="25.4" size="0.635" layer="28" font="vector" rot="MR270" display="off"/>
 <attribute name="VOLTAGE" value="16V" x="35.814" y="25.4" size="0.635" layer="28" font="vector" rot="MR270" display="off"/>
+<attribute name="PRICE" value="0.27" x="35.814" y="25.4" size="1.778" layer="28" rot="MR270" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/cl21b105kofnnng/kondenzatory-mlcc-smd-0805/samsung/" x="35.814" y="25.4" size="1.778" layer="28" rot="MR270" display="off"/>
 </element>
 <element name="C4" library="!discrete" package="0805" value="1M" x="29.845" y="25.4" rot="MR90">
 <attribute name="MATERIAL" value="X7R" x="29.845" y="25.4" size="0.635" layer="28" font="vector" rot="MR90" display="off"/>
 <attribute name="VOLTAGE" value="16V" x="29.845" y="25.4" size="0.635" layer="28" font="vector" rot="MR90" display="off"/>
+<attribute name="PRICE" value="0.27" x="29.845" y="25.4" size="1.778" layer="28" rot="MR90" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/cl21b105kofnnng/kondenzatory-mlcc-smd-0805/samsung/" x="29.845" y="25.4" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
 <element name="U$2" library="!frames" package="DIN_DOCFIELD_SCALE2" value="" x="11.43" y="-73.66"/>
 <element name="U$3" library="!frames" package="DIN_A4_SCALE2" value="" x="-27.94" y="-73.66"/>
-<element name="F2" library="!discrete" package="1812" value="SD110-16" x="4.445" y="7.62" rot="R270"/>
+<element name="F2" library="!discrete" package="1812" value="SD110-16" x="4.445" y="7.62" rot="R270">
+<attribute name="PRICE" value="3.18" x="4.445" y="7.62" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/sd110-16/polymerove-pojistky-smd/ece/" x="4.445" y="7.62" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 <element name="JP4" library="!pinhead" package="2X03_254_FP" value="DNP" x="10.16" y="33.02" rot="R270"/>
-<element name="JP5" library="!pinhead" package="1X02_250_MX5267" value="MX-5267-02A" x="4.445" y="22.86" rot="R270"/>
+<element name="JP5" library="!pinhead" package="1X02_250_MX5267" value="MX-5267-02A" x="4.445" y="22.86" rot="R270">
+<attribute name="PRICE" value="1.30" x="4.445" y="22.86" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/mx-5267-02a/signalove-konektory-raster-250mm/molex/022035025-22-03-5025-5267-02a/" x="4.445" y="22.86" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 </elements>
 <signals>
 <signal name="N$1">

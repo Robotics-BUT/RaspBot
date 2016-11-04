@@ -4258,24 +4258,49 @@ DIN A4, landscape with extra doc field</description>
 </class>
 </classes>
 <parts>
-<part name="JP1" library="!pinhead" deviceset="PINHD-1X4" device="_254_EDGE" value="ZL201-04G"/>
-<part name="JP2" library="!pinhead" deviceset="PINHD-1X4" device="_254_EDGE" value="ZL201-04G"/>
+<part name="JP1" library="!pinhead" deviceset="PINHD-1X4" device="_254_EDGE" value="ZL201-04G">
+<attribute name="PRICE" value="0.96"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/zl201-04g/konektory-hrebinky/connfly/ds1021-1_4sf1-1/"/>
+</part>
+<part name="JP2" library="!pinhead" deviceset="PINHD-1X4" device="_254_EDGE" value="ZL201-04G">
+<attribute name="PRICE" value="0.96"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/zl201-04g/konektory-hrebinky/connfly/ds1021-1_4sf1-1/"/>
+</part>
 <part name="V1" library="!supply" deviceset="GND" device=""/>
 <part name="V2" library="!supply" deviceset="GND" device=""/>
-<part name="M1" library="pololu" deviceset="DRV8825" device=""/>
-<part name="M2" library="pololu" deviceset="DRV8825" device=""/>
+<part name="M1" library="pololu" deviceset="DRV8825" device="">
+<attribute name="PRICE" value="181.73"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/pololu-2133/modulove-ovladace-motoru/pololu/"/>
+</part>
+<part name="M2" library="pololu" deviceset="DRV8825" device="">
+<attribute name="PRICE" value="181.73"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/pololu-2133/modulove-ovladace-motoru/pololu/"/>
+</part>
 <part name="V4" library="!supply" deviceset="GND" device=""/>
 <part name="V5" library="!supply" deviceset="GND" device=""/>
 <part name="V16" library="!supply" deviceset="+03.3V" device=""/>
 <part name="V21" library="!supply" deviceset="+03.3V" device=""/>
-<part name="IO1" library="!ic_avr" deviceset="MEGA8" device="" value="ATmega88PA"/>
-<part name="JP3" library="!pinhead" deviceset="PINHD-1X4" device="_250_MX5267" value="MX-5267-04A"/>
-<part name="JP10" library="!pinhead" deviceset="PINHD-1X4" device="_250_MX5267" value="MX-5267-04A"/>
-<part name="JP11" library="!pinhead" deviceset="PINHD-1X1" device="_254X254PAD" value="B+">
-<attribute name="PIN" value="+VBAT"/>
+<part name="IO1" library="!ic_avr" deviceset="MEGA8" device="" value="ATmega88PA-AU">
+<attribute name="PRICE" value="54.04"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/atmega88pa-au/mikroprocesory-atmel-avr-smd/atmel/"/>
 </part>
-<part name="JP12" library="!pinhead" deviceset="PINHD-1X1" device="_254X254PAD" value="B-">
+<part name="JP3" library="!pinhead" deviceset="PINHD-1X4" device="_250_MX5267" value="MX-5267-04A">
+<attribute name="PRICE" value="2.55"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/mx-5267-04a/signalove-konektory-raster-250mm/molex/022035045-22-03-5045-5267-04a/"/>
+</part>
+<part name="JP10" library="!pinhead" deviceset="PINHD-1X4" device="_250_MX5267" value="MX-5267-04A">
+<attribute name="PRICE" value="2.55"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/mx-5267-04a/signalove-konektory-raster-250mm/molex/022035045-22-03-5045-5267-04a/"/>
+</part>
+<part name="JP11" library="!pinhead" deviceset="PINHD-1X1" device="_254X254PAD" value="DNP">
+<attribute name="PIN" value="+VBAT"/>
+<attribute name="PRICE" value="0.00"/>
+<attribute name="URL" value="-"/>
+</part>
+<part name="JP12" library="!pinhead" deviceset="PINHD-1X1" device="_254X254PAD" value="DNP">
 <attribute name="PIN" value="-VBAT"/>
+<attribute name="PRICE" value="0.00"/>
+<attribute name="URL" value="-"/>
 </part>
 <part name="V3" library="!supply" deviceset="GND" device=""/>
 <part name="V6" library="!supply" deviceset="+03.3V" device=""/>
@@ -4287,16 +4312,28 @@ DIN A4, landscape with extra doc field</description>
 <part name="V7" library="!supply" deviceset="+03.3V" device=""/>
 <part name="V8" library="!supply" deviceset="+03.3V" device=""/>
 <part name="V14" library="!supply" deviceset="GND" device=""/>
-<part name="R1" library="!discrete" deviceset="R_" device="R0805" value="10k"/>
+<part name="R1" library="!discrete" deviceset="R_" device="R0805" value="10k">
+<attribute name="PRICE" value="0.15"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/rc0805jr-07510k/rezistory-smd-0805/yageo/rc0805jr-07510kl/"/>
+</part>
 <part name="C1" library="!discrete" deviceset="C" device="0805" value="100n">
+<attribute name="PRICE" value="0.16"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/cc0805krx7r9104/kondenzatory-mlcc-smd-0805/yageo/cc0805krx7r9bb104/"/>
 <attribute name="VOLTAGE" value="16V"/>
 </part>
 <part name="V15" library="!supply" deviceset="GND" device=""/>
-<part name="IO2" library="!stab" deviceset="STAB_IO" device="_SOT23_GOI" value="MCP1700T3302ETT"/>
+<part name="IO2" library="!stab" deviceset="STAB_IO" device="_SOT23_GOI" value="MCP1700T3302ETT">
+<attribute name="PRICE" value="8.77"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/mcp1700t3302ett/stabilizatory-napeti-neregulovane-ldo/microchip-technology/mcp1700t-3302ett/"/>
+</part>
 <part name="C3" library="!discrete" deviceset="C" device="0805" value="1M">
+<attribute name="PRICE" value="0.27"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/cl21b105kofnnng/kondenzatory-mlcc-smd-0805/samsung/"/>
 <attribute name="VOLTAGE" value="16V"/>
 </part>
 <part name="C4" library="!discrete" deviceset="C" device="0805" value="1M">
+<attribute name="PRICE" value="0.27"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/cl21b105kofnnng/kondenzatory-mlcc-smd-0805/samsung/"/>
 <attribute name="VOLTAGE" value="16V"/>
 </part>
 <part name="V18" library="!supply" deviceset="GND" device=""/>
@@ -4314,10 +4351,16 @@ DIN A4, landscape with extra doc field</description>
 <part name="V30" library="!supply" deviceset="+03.3V" device=""/>
 <part name="V31" library="!supply" deviceset="+03.3V" device=""/>
 <part name="F1" library="!frames" deviceset="DIN_A4_" device=""/>
-<part name="F2" library="!discrete" deviceset="F" device="_1812" value="SD110-16"/>
+<part name="F2" library="!discrete" deviceset="F" device="_1812" value="SD110-16">
+<attribute name="PRICE" value="3.18"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/sd110-16/polymerove-pojistky-smd/ece/"/>
+</part>
 <part name="JP4" library="!pinhead" deviceset="PINHD-2X3" device="_254_FP" value="DNP"/>
 <part name="V32" library="!supply" deviceset="+03.3V" device=""/>
-<part name="JP5" library="!pinhead" deviceset="PINHD-1X2" device="_250_MX5267" value="MX-5267-02A"/>
+<part name="JP5" library="!pinhead" deviceset="PINHD-1X2" device="_250_MX5267" value="MX-5267-02A">
+<attribute name="PRICE" value="1.30"/>
+<attribute name="URL" value="http://www.tme.eu/cz/details/mx-5267-02a/signalove-konektory-raster-250mm/molex/022035025-22-03-5025-5267-02a/"/>
+</part>
 <part name="V33" library="!supply" deviceset="GND" device=""/>
 </parts>
 <sheets>
@@ -4328,15 +4371,25 @@ DIN A4, landscape with extra doc field</description>
 <instance part="JP1" gate="A" x="52.07" y="91.44" smashed="yes" rot="MR0">
 <attribute name="NAME" x="48.26" y="97.79" size="1.27" layer="95" rot="MR270" align="center-left"/>
 <attribute name="VALUE" x="50.8" y="97.79" size="1.27" layer="96" rot="MR270" align="center-left"/>
+<attribute name="PRICE" x="52.07" y="91.44" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="52.07" y="91.44" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="JP2" gate="A" x="52.07" y="119.38" smashed="yes" rot="MR0">
 <attribute name="NAME" x="48.26" y="125.73" size="1.27" layer="95" rot="MR270" align="center-left"/>
 <attribute name="VALUE" x="50.8" y="125.73" size="1.27" layer="96" rot="MR270" align="center-left"/>
+<attribute name="PRICE" x="52.07" y="119.38" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="52.07" y="119.38" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="V1" gate="GND" x="66.04" y="99.06" rot="MR90"/>
 <instance part="V2" gate="GND" x="66.04" y="83.82" rot="MR90"/>
-<instance part="M1" gate="G$1" x="86.36" y="121.92" rot="MR0"/>
-<instance part="M2" gate="G$1" x="86.36" y="93.98" rot="MR0"/>
+<instance part="M1" gate="G$1" x="86.36" y="121.92" rot="MR0">
+<attribute name="PRICE" x="86.36" y="121.92" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="86.36" y="121.92" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="M2" gate="G$1" x="86.36" y="93.98" rot="MR0">
+<attribute name="PRICE" x="86.36" y="93.98" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="86.36" y="93.98" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="V4" gate="GND" x="66.04" y="111.76" rot="MR90"/>
 <instance part="V5" gate="GND" x="66.04" y="127" rot="MR90"/>
 <instance part="V16" gate="G$1" x="109.22" y="99.06" smashed="yes" rot="MR90">
@@ -4345,20 +4398,31 @@ DIN A4, landscape with extra doc field</description>
 <instance part="V21" gate="G$1" x="109.22" y="127" smashed="yes" rot="MR90">
 <attribute name="VALUE" x="112.395" y="127.635" size="1.27" layer="96" rot="MR180"/>
 </instance>
-<instance part="IO1" gate="A" x="190.5" y="106.68"/>
+<instance part="IO1" gate="A" x="190.5" y="106.68">
+<attribute name="PRICE" x="190.5" y="106.68" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="190.5" y="106.68" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="JP3" gate="A" x="251.46" y="119.38" smashed="yes">
 <attribute name="NAME" x="250.19" y="127" size="1.27" layer="95" rot="R90" align="center-left"/>
 <attribute name="VALUE" x="250.19" y="114.3" size="1.27" layer="96" rot="R270" align="center-left"/>
+<attribute name="PRICE" x="251.46" y="119.38" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="251.46" y="119.38" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="JP10" gate="A" x="243.84" y="119.38" smashed="yes">
 <attribute name="NAME" x="242.57" y="127" size="1.27" layer="95" rot="R90" align="center-left"/>
 <attribute name="VALUE" x="242.57" y="114.3" size="1.27" layer="96" rot="R270" align="center-left"/>
+<attribute name="PRICE" x="243.84" y="119.38" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="243.84" y="119.38" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="JP11" gate="G$1" x="15.24" y="129.54" rot="R180">
 <attribute name="PIN" x="15.24" y="129.54" size="1.27" layer="96" rot="R180" align="bottom-center" display="off"/>
+<attribute name="PRICE" x="15.24" y="129.54" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="15.24" y="129.54" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="JP12" gate="G$1" x="15.24" y="116.84" rot="R180">
 <attribute name="PIN" x="15.24" y="116.84" size="1.27" layer="96" rot="R180" align="bottom-center" display="off"/>
+<attribute name="PRICE" x="15.24" y="116.84" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="15.24" y="116.84" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="V3" gate="GND" x="27.94" y="116.84" rot="MR270"/>
 <instance part="V6" gate="G$1" x="218.44" y="93.98" smashed="yes" rot="MR90">
@@ -4379,12 +4443,27 @@ DIN A4, landscape with extra doc field</description>
 <attribute name="VALUE" x="140.335" y="94.615" size="1.27" layer="96" rot="MR0" align="bottom-center"/>
 </instance>
 <instance part="V14" gate="GND" x="134.62" y="91.44" rot="MR90"/>
-<instance part="R1" gate="G$1" x="152.4" y="104.14"/>
-<instance part="C1" gate="G$1" x="175.26" y="149.86" rot="R90"/>
+<instance part="R1" gate="G$1" x="152.4" y="104.14">
+<attribute name="PRICE" x="152.4" y="104.14" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="152.4" y="104.14" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C1" gate="G$1" x="175.26" y="149.86" rot="R90">
+<attribute name="PRICE" x="175.26" y="149.86" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="175.26" y="149.86" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="V15" gate="GND" x="175.26" y="137.16" rot="MR0"/>
-<instance part="IO2" gate="G$1" x="195.58" y="162.56" rot="MR0"/>
-<instance part="C3" gate="G$1" x="205.74" y="149.86" rot="R90"/>
-<instance part="C4" gate="G$1" x="185.42" y="149.86" rot="R90"/>
+<instance part="IO2" gate="G$1" x="195.58" y="162.56" rot="MR0">
+<attribute name="PRICE" x="195.58" y="162.56" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="195.58" y="162.56" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C3" gate="G$1" x="205.74" y="149.86" rot="R90">
+<attribute name="PRICE" x="205.74" y="149.86" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="205.74" y="149.86" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="C4" gate="G$1" x="185.42" y="149.86" rot="R90">
+<attribute name="PRICE" x="185.42" y="149.86" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="185.42" y="149.86" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="V18" gate="GND" x="205.74" y="137.16" rot="MR0"/>
 <instance part="V19" gate="GND" x="195.58" y="137.16" rot="MR0"/>
 <instance part="V20" gate="GND" x="185.42" y="137.16" rot="MR0"/>
@@ -4423,12 +4502,18 @@ DIN A4, landscape with extra doc field</description>
 </instance>
 <instance part="F1" gate="G$1" x="0" y="0"/>
 <instance part="F1" gate="G$2" x="162.56" y="0"/>
-<instance part="F2" gate="G$1" x="33.02" y="129.54"/>
+<instance part="F2" gate="G$1" x="33.02" y="129.54">
+<attribute name="PRICE" x="33.02" y="129.54" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="33.02" y="129.54" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="JP4" gate="A" x="149.86" y="93.98"/>
 <instance part="V32" gate="G$1" x="137.16" y="104.14" smashed="yes" rot="MR270">
 <attribute name="VALUE" x="140.335" y="104.775" size="1.27" layer="96" rot="MR0" align="bottom-center"/>
 </instance>
-<instance part="JP5" gate="G$1" x="15.24" y="154.94" rot="R180"/>
+<instance part="JP5" gate="G$1" x="15.24" y="154.94" rot="R180">
+<attribute name="PRICE" x="15.24" y="154.94" size="1.778" layer="96" display="off"/>
+<attribute name="URL" x="15.24" y="154.94" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="V33" gate="GND" x="27.94" y="152.4" rot="MR270"/>
 </instances>
 <busses>
