@@ -90,26 +90,26 @@ int main(void)
 		if (TWCR & _BV(TWINT)) {
 			switch ((uint8_t)((TWSR >> 3) & 0x1F)){
 			// Transmitter
-			case TWI_STX_ADR_ACK >> 3:
+			case TWI_ST_SLA_ACK >> 3:
 				twibufptrlen = i2c_initread();
 				twibufptr = 0;
 		
-			case TWI_STX_DATA_ACK >> 3:
+			case TWI_ST_DATA_ACK >> 3:
 				TWDR = (twibufptr >= twibufptrlen) ? 0 : twibuf[twibufptr++];
 				break;
 			
 			// Receiver
-			case TWI_SRX_ADR_ACK >> 3:
+			case TWI_SR_SLA_ACK >> 3:
 				twibufptrlen = i2c_initwrite();
 				twibufptr = 0;
 				break;
 			
-			case TWI_SRX_ADR_DATA_ACK >> 3:
+			case TWI_SR_DATA_ACK >> 3:
 				if (twibufptr < twibufptrlen)
 					twibuf[twibufptr++] = TWDR;
 				break;
 			
-			case TWI_SRX_STOP_RESTART >> 3:
+			case TWI_SR_STOP >> 3:
 				// fast forward because write can be longer
 				TWCR = _BV(TWEN) | _BV(TWINT) | _BV(TWEA);
 				i2c_finishwrite(twibufptr);
