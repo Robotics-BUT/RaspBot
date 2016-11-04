@@ -4,12 +4,9 @@
 *.l#?
 *.skb
 .suo
+.vs
 obj
 bin/Debug
 bin/Release
-/src/KM2/km2.hex
-/src/KM2/km2.eep
-/src/KM2/km2.elf
-/src/KM2/km2.map
-/src/KM2/km2.lst
-
+/src/KM2/Debug
+/src/KM2/Release
