@@ -83,8 +83,8 @@ static inline int i2c_close(int fd);
  * @param fd file descriptor
  * @param chip_addr I2C address of the chip
  * @param buffer data storage for the transaction
- * @param nw number of bytes to write
- * @param nr number of bytes to read
+ * @param nw number of bytes to write, -1 to skip
+ * @param nr number of bytes to read, -1 to skip
  * @return number bytes readed when success
  * @return -1 on error (errno is set)
  */
@@ -313,10 +313,10 @@ static inline int i2c_transact(int fd, int chip_addr, uint8_t *buffer, int nw, i
 {
   int err = ioctl(fd, I2C_SLAVE, chip_addr);
   
-  if ((err == 0) && (nw > 0))
+  if ((err == 0) && (nw >= 0))
     err = write(fd, buffer, nw);
   
-  if ((err > 0) && (nr > 0))
+  if ((err > 0) && (nr >= 0))
     err = read(fd, buffer, nr);
   
   return err;
