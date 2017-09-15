@@ -1,6 +1,6 @@
 [submodule "boards/KM2"]
 	path = boards/KM2
-	url = git@student.robotika.ceitec.vutbr.cz:PCBS/KM2.git
+	url = https://student.robotika.ceitec.vutbr.cz/PCBS/KM2.git
 [submodule "boards/mainboard"]
 	path = boards/mainboard
-	url = git@student.robotika.ceitec.vutbr.cz:PCBS/MAINBOARD.git
+	url = https://student.robotika.ceitec.vutbr.cz/PCBS/MAINBOARD.git
